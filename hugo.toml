@@ -1,0 +1,7 @@
+baseURL = 'http://example.org/'
+languageCode = 'ja'
+title = 'personal site'
+theme = "hugo-coder"
+defaultcontentlanguage = "ja"
+
+paginate = 20
