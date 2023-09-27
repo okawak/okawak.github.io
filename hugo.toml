@@ -1,7 +1,68 @@
 baseURL = 'http://example.org/'
-languageCode = 'ja'
-title = 'personal site'
+title = 'home'
 theme = "hugo-coder"
+languageCode = 'ja'
 defaultcontentlanguage = "ja"
 
 paginate = 20
+
+googleAnalytics = "G-MZF67K577Y"
+
+[markup.highlight]
+style = "github-dark"
+
+[params]
+  author = "Kodai Okawa"
+  info = "調べたことやノウハウをまとめておく"
+  description = "Kodai Okawa's personal website"
+  keywords = "blog,developer,personal"
+  avatarurl = "images/okawa_avatar.png"
+  #gravatar = "john.doe@example.com"
+
+  #faviconSVG = "/img/favicon.svg"
+  #favicon_32 = "/img/favicon-32x32.png"
+  #favicon_16 = "/img/favicon-16x16.png"
+
+  since = 2023
+
+  #enableTwemoji = true
+
+  colorScheme = "auto"
+  hidecolorschemetoggle = false
+
+  # customCSS = ["css/custom.css"]
+  # customSCSS = ["scss/custom.scss"]
+  # customJS = ["js/custom.js"]
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+  author = "authors"
+
+# Social links
+[[params.social]]
+  name = "Github"
+  icon = "fa fa-github fa-2x"
+  weight = 1
+  url = "https://github.com/okawak/"
+[[params.social]]
+  name = "Gitlab"
+  icon = "fa fa-gitlab fa-2x"
+  weight = 2
+  url = "https://www.cns.s.u-tokyo.ac.jp/gitlab/Okawa"
+[[params.social]]
+  name = "gmail"
+  icon = "fa fa-paper-plane fa-2x"
+  weight = 3
+  url = "mailto:okawa@cns.s.u-tokyo.ac.jp"
+
+# Menu links
+[[menu.main]]
+  name = "About"
+  weight = 1
+  url = "about/"
+[[menu.main]]
+  name = "Blog"
+  weight = 2
+  url  = "posts/"
