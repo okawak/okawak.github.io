@@ -2,14 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/authors/</loc>
+    <loc>https://okawak.github.io/products/</loc>
+    <lastmod>2023-09-29T14:24:28+09:00</lastmod>
   </url><url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://okawak.github.io/authors/</loc>
   </url><url>
-    <loc>http://example.org/</loc>
+    <loc>https://okawak.github.io/categories/</loc>
   </url><url>
-    <loc>http://example.org/series/</loc>
+    <loc>https://okawak.github.io/</loc>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://okawak.github.io/series/</loc>
+  </url><url>
+    <loc>https://okawak.github.io/tags/</loc>
   </url>
 </urlset>
