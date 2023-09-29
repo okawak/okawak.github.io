@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://okawak.github.io/'
 title = 'home'
 theme = "hugo-coder"
 languageCode = 'ja'
@@ -66,3 +66,7 @@ style = "github-dark"
   name = "Blog"
   weight = 2
   url  = "posts/"
+[[menu.main]]
+  name = "作ったもの"
+  weight = 3
+  url  = "products/"
