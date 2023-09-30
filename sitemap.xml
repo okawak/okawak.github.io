@@ -2,14 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://okawak.github.io/</loc>
+    <lastmod>2023-09-30T14:26:25+09:00</lastmod>
+  </url><url>
+    <loc>https://okawak.github.io/posts/</loc>
+    <lastmod>2023-09-30T14:26:25+09:00</lastmod>
+  </url><url>
+    <loc>https://okawak.github.io/posts/test/</loc>
+    <lastmod>2023-09-30T14:26:25+09:00</lastmod>
+  </url><url>
+    <loc>https://okawak.github.io/about/</loc>
+    <lastmod>2023-09-30T14:24:00+09:00</lastmod>
+  </url><url>
     <loc>https://okawak.github.io/products/</loc>
     <lastmod>2023-09-29T14:24:28+09:00</lastmod>
   </url><url>
     <loc>https://okawak.github.io/authors/</loc>
   </url><url>
     <loc>https://okawak.github.io/categories/</loc>
-  </url><url>
-    <loc>https://okawak.github.io/</loc>
   </url><url>
     <loc>https://okawak.github.io/series/</loc>
   </url><url>
