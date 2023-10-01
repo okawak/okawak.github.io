@@ -8,6 +8,7 @@ paginate = 20
 
 googleAnalytics = "G-MZF67K577Y"
 disqusShortname = "okawak-github-io"
+enableGitInfo = true
 
 [markup.highlight]
 style = "github-dark"
@@ -26,7 +27,7 @@ style = "github-dark"
 
   since = 2023
 
-  #enableTwemoji = true
+  enableTwemoji = true
 
   colorScheme = "auto"
   hidecolorschemetoggle = false
@@ -71,3 +72,7 @@ style = "github-dark"
   name = "作ったもの"
   weight = 3
   url  = "products/"
+[[menu.main]]
+  name = "タグ"
+  weight = 4
+  url  = "tags/"
