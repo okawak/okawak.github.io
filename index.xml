@@ -18,16 +18,18 @@ title 1 見出しへのリンク title 2 見出しへのリンク </description>
     </item>
     
     <item>
-      <title>About</title>
+      <title>自己紹介</title>
       <link>https://okawak.github.io/about/</link>
       <pubDate>Sat, 30 Sep 2023 14:24:00 +0900</pubDate>
       
       <guid>https://okawak.github.io/about/</guid>
-      <description>Kodai Okawa 見出しへのリンク under depelopment</description>
+      <description>大川皓大(Kodai Okawa) 専攻:物理学 PhD学生 鳥取県出身 ソフトウェア、ハードウェアを問わず技術に関することに興味があります。 まだまだ初心者で知識も拙いですが、学んだことをメモしていきたいと思っています。
+このサイトは、github pagesを用いて運用しており、 ソースコードは私のgithubページからも見ることができますが、 hugo + coderのテーマを用いて作成しています。 勉強の意味合いを込め、2023年9月に開設しました。
+内容に関して間違っていること、最適ではないことも含まれているかもしれませんが、 勉強中という身ですのでご了承ください。</description>
     </item>
     
     <item>
-      <title>Products</title>
+      <title>作ったもの</title>
       <link>https://okawak.github.io/products/</link>
       <pubDate>Fri, 29 Sep 2023 14:24:28 +0900</pubDate>
       
