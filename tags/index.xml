@@ -5,6 +5,16 @@
     <link>https://okawak.github.io/tags/</link>
     <description>Recent content in Tags on home</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language><atom:link href="https://okawak.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>ja</language>
+    <lastBuildDate>Sat, 30 Sep 2023 14:26:25 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>test</title>
+      <link>https://okawak.github.io/tags/test/</link>
+      <pubDate>Sat, 30 Sep 2023 14:26:25 +0900</pubDate>
+      
+      <guid>https://okawak.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
