@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on home</title>
-    <link>https://okawak.github.io/posts/</link>
-    <description>Recent content in Posts on home</description>
+    <title>hugo on home</title>
+    <link>https://okawak.github.io/tags/hugo/</link>
+    <description>Recent content in hugo on home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 08 Oct 2023 12:32:08 +0900</lastBuildDate><atom:link href="https://okawak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Oct 2023 12:32:08 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hugoで新しい記事を作成する</title>
       <link>https://okawak.github.io/posts/2023/new_post/</link>
