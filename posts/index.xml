@@ -6,7 +6,22 @@
     <description>Recent content in Posts on home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 08 Oct 2023 12:32:08 +0900</lastBuildDate><atom:link href="https://okawak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Oct 2023 13:48:38 +0900</lastBuildDate><atom:link href="https://okawak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pipやrequirements.txtについての備忘録</title>
+      <link>https://okawak.github.io/posts/2023/python_requirement/</link>
+      <pubDate>Wed, 11 Oct 2023 13:48:38 +0900</pubDate>
+      
+      <guid>https://okawak.github.io/posts/2023/python_requirement/</guid>
+      <description>python環境をvenvを使って作成する際、必要なパッケージなどをrequirements.txtで管理するようにしている。
+githubにソースを置いておくと時々セキュリティ面からパッケージをアップグレードするようにと連絡がくるため、 必要なコマンド等を忘れないようにメモしておく。
+随時メモしておくべきことがあれば更新します。
+基本的な使い方 見出しへのリンク pipでパッケージを一括でインストールする 見出しへのリンク pip install -r requirements.txt 現在の環境をrequirements.txtに書き出す 見出しへのリンク pip freeze &amp;gt; requirements.txt リダイレクトの設定が上書き禁止になっている場合 （「noclobber」がonになっている場合。この設定はset -o | grep noclobberなどで確認できる）、 このコマンドでは新たなファイルを作成することはできない。 強制的に上書きするには次のようにする。
+pip freeze &amp;gt;| requirements.txt パッケージのアップグレード 見出しへのリンク pipで一つずつアップグレード 見出しへのリンク pip install -U PackageName # or pip install --upgrade PackageName awkを用いて一括アップグレード 見出しへのリンク まず、pipで更新可能なパッケージを確認するには、
+pip list -o で確認できる。この出力を用いて一括アップデートするコマンドは以下の通りである。
+pip list -o | tail -n +3 | awk &amp;#39;{ print $1 }&amp;#39; | xargs pip install -U これは、pip list -oで出力されるパッケージについて、tail -n +3でパッケージ部分のみを取り出して（3行目から表示させるという意味）、 awk &#39;{print $1}&#39;で一列目を取り出し（パッケージの名前）、これらをpip install -Uするという処理になっている。</description>
+    </item>
+    
     <item>
       <title>hugoで新しい記事を作成する</title>
       <link>https://okawak.github.io/posts/2023/new_post/</link>
@@ -21,7 +36,7 @@ hugo new posts/hoge.md このとき作成された./content/posts/hoge.mdの内�
 このデフォルトで作成されるファイルは、./archetypes/default.mdによって作成されています。
 --- title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34; date: {{ .Date }} draft: true --- ここに現れている.Nameや.Dateなどはhugoでアクセスできる変数で、詳細は公式ページを確認して下さい。 つまり、このテンプレートファイルをカスタマイズすることで、自動で記事に必要な情報を加えることができるということになります。
 テンプレートファイルの作成 見出しへのリンク ./archetypes/default.mdを変更すれば、全ての記事の初期設定を決めることができますが、作成するページに応じて設定したい内容が異なることがほとんどだと思います。 例えば、ディレクトリを分けて記事(./content/)を書き、posts/以下にブログ、about/以下にプロファイルを記載するといった用途が考えられます。(こちらのサイトもそうなっています。)
-そこで、postsディレクトリ以下に作成する記事には、ある特定のテンプレートファイルを使いたいと考えるようになるはずです。 hugoにはデフォルトでそのような機能がついており、archetypes/ディレクトリ名.mdを作成することで、このテンプレートファイルが初期設定として使われるようになります。
+そこで、postsディレクトリ以下に作成する記事には、ある特定のテンプレートファイルを使いたいと考えるようになるはずです。 hugoにはデフォルトでそのような機能がついており、./archetypes/ディレクトリ名.mdを作成することで、このテンプレートファイルが初期設定として使われるようになります。
 例として、./archetypes/posts.mdを作成して、新たな記事./content/posts/huga.mdを作成する例を見てみたいと思います。 テンプレートファイルposts.mdを以下のように作成します。
 --- title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34; date: {{ .</description>
     </item>
