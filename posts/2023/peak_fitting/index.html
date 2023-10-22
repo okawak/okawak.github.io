@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>
+  ピークフィッティングまとめ · home
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Kodai Okawa">
+<meta name="description" content="pythonとROOTを使ったピークサーチ、ピークフィッティングのまとめ">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ピークフィッティングまとめ"/>
+<meta name="twitter:description" content="pythonとROOTを使ったピークサーチ、ピークフィッティングのまとめ"/>
+
+<meta property="og:title" content="ピークフィッティングまとめ" />
+<meta property="og:description" content="pythonとROOTを使ったピークサーチ、ピークフィッティングのまとめ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://okawak.github.io/posts/2023/peak_fitting/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-18T16:33:52+09:00" />
+<meta property="article:modified_time" content="2023-10-22T18:52:32+09:00" />
+
+
+<meta name="google-site-verification" content="DZRXG_570dks0Mo2WwLMxcGYxlc1D6ij1VSWfiV8ihA" />
+
+
+
+<link rel="canonical" href="https://okawak.github.io/posts/2023/peak_fitting/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+ <link rel="stylesheet" href="/css/custom.css" />
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      home
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">記事</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/products/">作ったもの</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">タグ</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://okawak.github.io/posts/2023/peak_fitting/">
+              ピークフィッティングまとめ
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-10-18T16:33:52&#43;09:00">
+                作成日
+                2023/10/18
+              </time>
+            </span>
+            <span class="posted-on">
+              <i class="fa fa-hourglass" aria-hidden="true"></i>
+              <time datetime="2023-10-18T16:33:52&#43;09:00">
+                最終更新日
+                2023/10/22
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              4分で読めます
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/python/">python</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/root/">ROOT</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/peak_fitting/">peak_fitting</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/peak_search/">peak_search</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <div class="page-toc">
+  <details open>
+    <summary>目次</summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#環境について">環境について</a></li>
+    <li><a href="#rootでの解析">ROOTでの解析</a>
+      <ul>
+        <li><a href="#データの読み込み">データの読み込み</a></li>
+        <li><a href="#ピークサーチ">ピークサーチ</a></li>
+        <li><a href="#フィッティング">フィッティング</a></li>
+      </ul>
+    </li>
+    <li><a href="#pythonでの解析">pythonでの解析</a>
+      <ul>
+        <li><a href="#ピークサーチ-1">ピークサーチ</a></li>
+        <li><a href="#フィッティング-1">フィッティング</a></li>
+      </ul>
+    </li>
+    <li><a href="#まとめ">まとめ</a></li>
+  </ul>
+</nav>
+  </details>
+</div>  
+        <p>普段<a href="https://root.cern/"  class="external-link" target="_blank" rel="noopener">ROOT</a>を使って解析していますが、物理解析に特化しており一般的ではないと思います。
+特に有用なデータ処理に対してpythonを用いて同じことができれば良いなということで、特にピークフィットについて調べました。</p>
+<h2 id="環境について">
+  環境について
+  <a class="heading-link" href="#%e7%92%b0%e5%a2%83%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h2>
+<p>テストデータを用いた実験は以下のマシンで行いました。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; sw_vers
+</span></span><span style="display:flex;"><span>ProductName:		macOS
+</span></span><span style="display:flex;"><span>ProductVersion:		13.6
+</span></span><span style="display:flex;"><span>BuildVersion:		22G120
+</span></span><span style="display:flex;"><span>&gt; uname -v
+</span></span><span style="display:flex;"><span>Darwin Kernel Version 22.6.0: Fri Sep <span style="color:#a5d6ff">15</span> 13:41:30 PDT 2023; root:xnu-8796.141.3.700.8~1/RELEASE_ARM64_T8103
+</span></span></code></pre></div><p>ROOTのバージョンは、</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; root --version
+</span></span><span style="display:flex;"><span>ROOT Version: 6.28/06
+</span></span><span style="display:flex;"><span>Built <span style="color:#ff7b72">for</span> macosxarm64 on Aug <span style="color:#a5d6ff">28</span> 2023, 11:29:15
+</span></span><span style="display:flex;"><span>From tags/v6-28-06@v6-28-06
+</span></span></code></pre></div><p>python 3.11.6を用い、パッケージのバージョンはgithubにある<a href="https://github.com/okawak/example/blob/main/peak_fitting/requirements.txt"  class="external-link" target="_blank" rel="noopener">requirements.txt</a>を参照してください。</p>
+<p>今回の記事ではデータの例として、Ge検出器で$^{133}$Baのガンマ線を測定したデータを用いようと思います。
+データ構造としては最も単純と考えられる、テキストファイルが与えられているとします。
+例えば、0chから順に、</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>1
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>1000
+</span></span><span style="display:flex;"><span>233
+</span></span><span style="display:flex;"><span>0
+</span></span></code></pre></div><p>のような一列になっているファイルを考えます。</p>
+<h2 id="rootでの解析">
+  ROOTでの解析
+  <a class="heading-link" href="#root%e3%81%a7%e3%81%ae%e8%a7%a3%e6%9e%90">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h2>
+<p>fit.Cという名前のマクロを用いて解析します。</p>
+<h3 id="データの読み込み">
+  データの読み込み
+  <a class="heading-link" href="#%e3%83%87%e3%83%bc%e3%82%bf%e3%81%ae%e8%aa%ad%e3%81%bf%e8%be%bc%e3%81%bf">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h3>
+<p>ROOTのTH1にはテキストファイルから直接TH1オブジェクトを生成するコンストラクタは無さそう(あったら教えてください&hellip;)なので、
+一行ずつ読み込ませてヒストグラムにセットしていきます。
+また、4096チャンネル(12ビット)を仮定しています。</p>
+<p>まず、単純にヒストグラムを表示させるマクロは以下の通りに書けます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ff7b72">void</span> <span style="color:#d2a8ff;font-weight:bold">fit</span>(TString text_data<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;&#34;</span>){
+</span></span><span style="display:flex;"><span>  ifstream fin(text_data);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">if</span>(<span style="color:#ff7b72;font-weight:bold">!</span>fin){
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff7b72;font-weight:bold">::</span>cerr <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> <span style="color:#a5d6ff">&#34;Error: not found &#34;</span> <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> text_data <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> std<span style="color:#ff7b72;font-weight:bold">::</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Int_t max_bin <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">4096</span>;
+</span></span><span style="display:flex;"><span>  TH1I <span style="color:#ff7b72;font-weight:bold">*</span>h <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> TH1I(<span style="color:#a5d6ff">&#34;h&#34;</span>, <span style="color:#a5d6ff">&#34;h&#34;</span>, max_bin, <span style="color:#a5d6ff">0</span>, max_bin <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  string buf;
+</span></span><span style="display:flex;"><span>  Int_t ch <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">while</span>(getline(fin, buf)){
+</span></span><span style="display:flex;"><span>    h<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetBinContent(ch, stoi(buf));
+</span></span><span style="display:flex;"><span>    ch<span style="color:#ff7b72;font-weight:bold">++</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">if</span>(max_bin <span style="color:#ff7b72;font-weight:bold">!=</span> ch){
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff7b72;font-weight:bold">::</span>cerr <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> <span style="color:#a5d6ff">&#34;max channel number is different: setting value = &#34;</span> <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> max_bin
+</span></span><span style="display:flex;"><span>              <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span><span style="color:#a5d6ff">&#34;, but data have &#34;</span> <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> ch <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> <span style="color:#a5d6ff">&#34; channels&#34;</span> <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> std<span style="color:#ff7b72;font-weight:bold">::</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  TCanvas <span style="color:#ff7b72;font-weight:bold">*</span>c1 <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> TCanvas(<span style="color:#a5d6ff">&#34;c&#34;</span>, <span style="color:#a5d6ff">&#34;c&#34;</span>, <span style="color:#a5d6ff">600</span>, <span style="color:#a5d6ff">600</span>);
+</span></span><span style="display:flex;"><span>  h<span style="color:#ff7b72;font-weight:bold">-&gt;</span>Draw();
+</span></span><span style="display:flex;"><span>  c1<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SaveAs(<span style="color:#a5d6ff">&#34;raw_data.png&#34;</span>); <span style="color:#8b949e;font-style:italic">// save
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>}
+</span></span></code></pre></div><p>次のようにテキストファイルの名前を引数に入れて実行すれば、結果として次のような絵が得られるはずです。
+テキストファイルとマクロファイルは同じディレクトリにあると仮定しています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root <span style="color:#a5d6ff">&#39;fit.C(&#34;Ba.txt&#34;)&#39;</span>
+</span></span></code></pre></div><figure><img src="raw_data.png" width="400"/>
+</figure>
+
+<p>今後はこのfit.Cを拡張していってマクロを完成させます。</p>
+<h3 id="ピークサーチ">
+  ピークサーチ
+  <a class="heading-link" href="#%e3%83%94%e3%83%bc%e3%82%af%e3%82%b5%e3%83%bc%e3%83%81">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h3>
+<p>フィッティングを収束させるためには、初期値をうまく設定する必要があります。
+この生データを見ながら大体ここら辺にピークがあるとして、一つ一つピークフィッティングしても良いですが、
+何回も行ったり、何個もピークがあると単純作業で大変です。
+そこで、ピークを自動で見つけてくれる<code>TSpectrum</code>というオブジェクトを使います。</p>
+<p>TSpectrumのコンストラクタは以下の通りです。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>TSpectrum (Int_t maxpositions, Double_t resolution<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">1</span>)
+</span></span></code></pre></div><ul>
+<li>maxposition: 見つけるピークの数</li>
+<li>resolution: 1は隣り合うピークが3sigma以上離れたものを探すことに対応する。数字が大きくなるとより近いピークを探すようになる。</li>
+</ul>
+<p>これを用いて$^{133}$Baのピークを8つ探します。(簡単のため80 keV付近の2つの重なったピークは一つとします。)
+マクロの引数に探したいピークの数を追加して以下のように書き換えます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ff7b72">void</span> <span style="color:#d2a8ff;font-weight:bold">fit</span>(TString text_data<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;&#34;</span>, Int_t peak_num<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72;font-weight:bold">--</span> snip <span style="color:#ff7b72;font-weight:bold">--</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  h<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetAxisRange(<span style="color:#a5d6ff">80</span>, <span style="color:#a5d6ff">1100</span>); <span style="color:#8b949e;font-style:italic">// size
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  TSpectrum <span style="color:#ff7b72;font-weight:bold">*</span>spec <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> TSpectrum(peak_num, <span style="color:#a5d6ff">1.5</span>); <span style="color:#8b949e;font-style:italic">// 1st: peak number, 2nd: resolution
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  Int_t nfound <span style="color:#ff7b72;font-weight:bold">=</span> spec<span style="color:#ff7b72;font-weight:bold">-&gt;</span>Search(h, <span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">&#34;&#34;</span>, <span style="color:#a5d6ff">0.0045</span>); <span style="color:#8b949e;font-style:italic">// 1st: histogram, 2nd: sigma, 3rd: option, 4th: threshold
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  h<span style="color:#ff7b72;font-weight:bold">-&gt;</span>Draw();
+</span></span><span style="display:flex;"><span>  gPad<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetLogy();
+</span></span><span style="display:flex;"><span>  c1<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SaveAs(<span style="color:#a5d6ff">&#34;tspectrum.png&#34;</span>); <span style="color:#8b949e;font-style:italic">// save
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">if</span>(nfound <span style="color:#ff7b72;font-weight:bold">!=</span> peak_num){
+</span></span><span style="display:flex;"><span>    std<span style="color:#ff7b72;font-weight:bold">::</span>cerr <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> <span style="color:#a5d6ff">&#34;Warning: tried to find &#34;</span> <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> peak_num <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> <span style="color:#a5d6ff">&#34; peaks, but found &#34;</span> <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> nfound <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> <span style="color:#a5d6ff">&#34; peaks&#34;</span> <span style="color:#ff7b72;font-weight:bold">&lt;&lt;</span> std<span style="color:#ff7b72;font-weight:bold">::</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>ここで、<code>h-&gt;SetAxisRange()</code>はピークを探す範囲を限定するために用いています。(ペデスタルを除いたり、自然放射線のピークを避ける。)
+デフォルトの値ではうまくピークサーチすることが難しいと思うので、TSpectrumのコンスラクタの引数や、
+Searchメソッドの引数を適当に設定することでうまくサーチすることができると思います。</p>
+<p>これを実行すると、次の絵が得られます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root <span style="color:#a5d6ff">&#39;fit.C(&#34;Ba.txt&#34;, 8)&#39;</span>
+</span></span></code></pre></div><figure><img src="tspectrum.png" width="400"/>
+</figure>
+
+<h3 id="フィッティング">
+  フィッティング
+  <a class="heading-link" href="#%e3%83%95%e3%82%a3%e3%83%83%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h3>
+<p>ピークサーチではこれらピークの中心値を得ることができます。しかし、これはビン幅の精度なのでこれを元にガウシアンフィッティングして、
+ピークの情報を得ます。</p>
+<p>これ以降は通常のフィッティングの要領で行えると思うのでコードのみ紹介します。
+フィット関数はガウシアン＋一次関数のバックグラウンドを仮定しています。
+また注意点として、80 keV付近の重なったピークの処理は行っていないです。
+状況に応じて、個々のピークに対する対応は行ってください。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>  <span style="color:#ff7b72;font-weight:bold">--</span> snip <span style="color:#ff7b72;font-weight:bold">--</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  gStyle<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetOptFit(<span style="color:#a5d6ff">1111</span>);
+</span></span><span style="display:flex;"><span>  Double_t <span style="color:#ff7b72;font-weight:bold">*</span>xpeaks <span style="color:#ff7b72;font-weight:bold">=</span> spec<span style="color:#ff7b72;font-weight:bold">-&gt;</span>GetPositionX();
+</span></span><span style="display:flex;"><span>  std<span style="color:#ff7b72;font-weight:bold">::</span>sort(xpeaks, xpeaks <span style="color:#ff7b72;font-weight:bold">+</span> peak_num);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  TF1 <span style="color:#ff7b72;font-weight:bold">*</span>f[peak_num];
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">for</span>(Int_t i<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>; i<span style="color:#ff7b72;font-weight:bold">&lt;</span>peak_num; i<span style="color:#ff7b72;font-weight:bold">++</span>){
+</span></span><span style="display:flex;"><span>    f[i] <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> TF1(Form(<span style="color:#a5d6ff">&#34;f[%d]&#34;</span>, i), <span style="color:#a5d6ff">&#34;gausn(0) + pol1(3)&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">for</span>(Int_t i<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>; i<span style="color:#ff7b72;font-weight:bold">&lt;</span>peak_num; i<span style="color:#ff7b72;font-weight:bold">++</span>){
+</span></span><span style="display:flex;"><span>    f[i]<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetRange(xpeaks[i] <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">15.0</span>, xpeaks[i] <span style="color:#ff7b72;font-weight:bold">+</span> <span style="color:#a5d6ff">15.0</span>);
+</span></span><span style="display:flex;"><span>    f[i]<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetParameters(<span style="color:#a5d6ff">10000</span>, xpeaks[i], <span style="color:#a5d6ff">1.0</span>, <span style="color:#a5d6ff">10.0</span>, <span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">0.001</span>); <span style="color:#8b949e;font-style:italic">// initial value
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    f[i]<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetParLimits(<span style="color:#a5d6ff">2</span>, <span style="color:#a5d6ff">0.</span>, <span style="color:#a5d6ff">100.</span>);
+</span></span><span style="display:flex;"><span>    h<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetAxisRange(xpeaks[i] <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">15.0</span>, xpeaks[i] <span style="color:#ff7b72;font-weight:bold">+</span> <span style="color:#a5d6ff">15.0</span>);
+</span></span><span style="display:flex;"><span>    h<span style="color:#ff7b72;font-weight:bold">-&gt;</span>Fit(f[i], <span style="color:#a5d6ff">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span>    f[i]<span style="color:#ff7b72;font-weight:bold">-&gt;</span>Draw(<span style="color:#a5d6ff">&#34;same&#34;</span>);
+</span></span><span style="display:flex;"><span>    c1<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SaveAs(Form(<span style="color:#a5d6ff">&#34;fit%d_result.png&#34;</span>, i)); <span style="color:#8b949e;font-style:italic">// save
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  h<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SetAxisRange(<span style="color:#a5d6ff">80</span>, <span style="color:#a5d6ff">1100</span>); <span style="color:#8b949e;font-style:italic">// size
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  c1<span style="color:#ff7b72;font-weight:bold">-&gt;</span>SaveAs(<span style="color:#a5d6ff">&#34;fit_all.png&#34;</span>); <span style="color:#8b949e;font-style:italic">// save
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>}
+</span></span></code></pre></div><p>ここで<code>std::sort</code>しているのは、Searchして得られる配列がchが小さい順に並んでいないためです。(今のバージョンではそんなことない？)
+従って、ピークの高さも<code>spec-&gt;GetPositionY()</code>で得られますが、sortすることで順番が混じってしまうので、簡単のためchの値のみ取得しています。
+うまく処理すれば、ピークの高さも用いてうまい初期値を設定することができると思います。(pythonの解析を参照)</p>
+<p>初期値の値は中心以外は適当です。<code>h-&gt;Fit(f[i], &quot;r&quot;)</code>のオプションの部分に<code>&quot;rq&quot;</code>とqを追加すると結果がターミナル上に表示されなくなります。
+表示された値を用いて他の処理を行いたい場合は、<code>f[i]-&gt;GetParameter(0)</code>などのメソッドを用いてアクセスすることができます。</p>
+<p>このマクロでは各ピークと全体の絵を保存するようにしました。全体の図はこのようになります。
+統計ボックスに表示されているパラメータの値は最後のフィット、つまり一番エネルギーが高いピークに対してであることに注意してください。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root <span style="color:#a5d6ff">&#39;fit.C(&#34;Ba.txt&#34;, 8)&#39;</span>
+</span></span></code></pre></div><figure><img src="fit_all.png" width="400"/>
+</figure>
+
+<p>ここで紹介したマクロは、コメントアウトを残した行を変更することで、より良いものにリファクタリングできると思います。</p>
+<h2 id="pythonでの解析">
+  pythonでの解析
+  <a class="heading-link" href="#python%e3%81%a7%e3%81%ae%e8%a7%a3%e6%9e%90">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h2>
+<p>Jupyter Notebookを使ってfit.ipynbという名前のファイルで解析します。
+vscodeなどでNotebookを使う環境を整えれば、簡単に解析することができると思います。
+まず次のようにimportします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">numpy</span> <span style="color:#ff7b72">as</span> <span style="color:#ff7b72">np</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">matplotlib.pyplot</span> <span style="color:#ff7b72">as</span> <span style="color:#ff7b72">plt</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">math</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">scipy.optimize</span> <span style="color:#ff7b72">import</span> curve_fit
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">scipy.signal</span> <span style="color:#ff7b72">import</span> find_peaks
+</span></span></code></pre></div><h3 id="ピークサーチ-1">
+  ピークサーチ
+  <a class="heading-link" href="#%e3%83%94%e3%83%bc%e3%82%af%e3%82%b5%e3%83%bc%e3%83%81-1">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h3>
+<p>ファイルからデータを読み出す際は、通常通りnumpy配列として読み込むだけで問題ないと思います。
+また、ヒストグラムのオブジェクトを作成する方が適切かと思いますが、簡単のためグラフとして読み込みたいと思います。
+(ROOTではTH1ではなく、TGraphとして読み込む)</p>
+<p>まず、生データを簡単に確認するコードの例はこのようになります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># input the text file name</span>
+</span></span><span style="display:flex;"><span>file_name <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;Ba.txt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>raw_data <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>loadtxt(file_name)
+</span></span><span style="display:flex;"><span>ch <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>arange(<span style="color:#a5d6ff">4096</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>plot(ch, raw_data)
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>savefig(<span style="color:#a5d6ff">&#34;py_raw_data.png&#34;</span>) <span style="color:#8b949e;font-style:italic"># save</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>show()
+</span></span></code></pre></div><figure><img src="py_raw_data.png" width="400"/>
+</figure>
+
+<p>ピークサーチに用いられる関数は様々あるようですが、ここではよく使われていると考えられるscipyの<code>find_peaks</code>を用いて見つけていこうと思います。
+この関数の主な引数は、</p>
+<ul>
+<li>height: ピークを探すときの最小の高さを設定する</li>
+<li>threshold: ピークの点とその隣の点の最小距離を指定する</li>
+<li>distance: 隣り合うピークの最小距離を設定する</li>
+<li>prominence: どのくらい顕著なピークを見つけるかを表す。値が大きいほど顕著なピークのみを探すようになる。</li>
+</ul>
+<p>であり、主に<code>prominence</code>（おそらくROOTのTSpectrumのresolutionに対応？）を変えて結果を見ていくのが良いと思います。
+また、次の解析の都合上(peak heightを得るために)heightの引数が必須なので、適当に小さな値を入れておくと良いです。</p>
+<p>この関数で得られる位置の配列は小さい順になっているはずなので、ピークの高さも次のように同時に得ておきます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># 範囲の指定</span>
+</span></span><span style="display:flex;"><span>data_range <span style="color:#ff7b72;font-weight:bold">=</span> (<span style="color:#a5d6ff">80</span>, <span style="color:#a5d6ff">1100</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#ff7b72;font-weight:bold">=</span> raw_data[data_range[<span style="color:#a5d6ff">0</span>]:data_range[<span style="color:#a5d6ff">1</span>]]
+</span></span><span style="display:flex;"><span>ch <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>arange(data_range[<span style="color:#a5d6ff">0</span>], data_range[<span style="color:#a5d6ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># parameters: height, threshold, distance, prominence</span>
+</span></span><span style="display:flex;"><span>peaks, results <span style="color:#ff7b72;font-weight:bold">=</span> find_peaks(data, height<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">10</span>, prominence<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">50</span>)
+</span></span><span style="display:flex;"><span>pos_peaks <span style="color:#ff7b72;font-weight:bold">=</span> peaks <span style="color:#ff7b72;font-weight:bold">+</span> data_range[<span style="color:#a5d6ff">0</span>]
+</span></span><span style="display:flex;"><span>height_peaks <span style="color:#ff7b72;font-weight:bold">=</span> results[<span style="color:#a5d6ff">&#34;peak_heights&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>plot(ch, data, label<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;data&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>plot(ch[peaks], data[peaks], <span style="color:#a5d6ff">&#34;x&#34;</span>, label<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;find peaks&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>yscale(<span style="color:#a5d6ff">&#34;log&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>savefig(<span style="color:#a5d6ff">&#34;py_find_peaks.png&#34;</span>) <span style="color:#8b949e;font-style:italic"># save</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>show()
+</span></span></code></pre></div><figure><img src="py_find_peaks.png" width="400"/>
+</figure>
+
+<p>このようにして、ROOTのTSpectrumと同じような処理を行うことができました。</p>
+<h3 id="フィッティング-1">
+  フィッティング
+  <a class="heading-link" href="#%e3%83%95%e3%82%a3%e3%83%83%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0-1">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h3>
+<p>フィッティングはscipyの<code>curve_fit</code>を用いて行います。
+他にもleastsqなどの方法もありますが、一番直感的なものはこの関数だと思います。</p>
+<p>まず、フィットする関数を定義します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">fit_func</span>(x, count, mu, sigma, a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> count <span style="color:#ff7b72;font-weight:bold">*</span> np<span style="color:#ff7b72;font-weight:bold">.</span>exp(<span style="color:#ff7b72;font-weight:bold">-</span> (x <span style="color:#ff7b72;font-weight:bold">-</span> mu)<span style="color:#ff7b72;font-weight:bold">**</span><span style="color:#a5d6ff">2</span> <span style="color:#ff7b72;font-weight:bold">/</span> (<span style="color:#a5d6ff">2</span> <span style="color:#ff7b72;font-weight:bold">*</span> sigma<span style="color:#ff7b72;font-weight:bold">**</span><span style="color:#a5d6ff">2</span>)) <span style="color:#ff7b72;font-weight:bold">/</span> (np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(<span style="color:#a5d6ff">2.</span> <span style="color:#ff7b72;font-weight:bold">*</span> np<span style="color:#ff7b72;font-weight:bold">.</span>pi) <span style="color:#ff7b72;font-weight:bold">*</span> sigma) <span style="color:#ff7b72;font-weight:bold">+</span> a <span style="color:#ff7b72;font-weight:bold">+</span> b <span style="color:#ff7b72;font-weight:bold">*</span> x
+</span></span></code></pre></div><p>最終的にフィットするコードの例はこちらになります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x_list <span style="color:#ff7b72;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span>y_list <span style="color:#ff7b72;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(len(peaks)):
+</span></span><span style="display:flex;"><span>    fine_range <span style="color:#ff7b72;font-weight:bold">=</span> (pos_peaks[i] <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">15</span>, pos_peaks[i] <span style="color:#ff7b72;font-weight:bold">+</span> <span style="color:#a5d6ff">15</span>)
+</span></span><span style="display:flex;"><span>    fine_data <span style="color:#ff7b72;font-weight:bold">=</span> raw_data[fine_range[<span style="color:#a5d6ff">0</span>]:fine_range[<span style="color:#a5d6ff">1</span>]]
+</span></span><span style="display:flex;"><span>    fine_ch <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>arange(fine_range[<span style="color:#a5d6ff">0</span>], fine_range[<span style="color:#a5d6ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># initial parameters</span>
+</span></span><span style="display:flex;"><span>    par, cov <span style="color:#ff7b72;font-weight:bold">=</span> curve_fit(fit_func, fine_ch, fine_data, sigma<span style="color:#ff7b72;font-weight:bold">=</span>np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(fine_data), p0<span style="color:#ff7b72;font-weight:bold">=</span>[height_peaks[i]<span style="color:#ff7b72;font-weight:bold">*</span><span style="color:#a5d6ff">2.0</span>, pos_peaks[i], <span style="color:#a5d6ff">1.0</span>, <span style="color:#a5d6ff">10.0</span>, <span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">0.001</span>])
+</span></span><span style="display:flex;"><span>    chi2 <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>sum(((fit_func(fine_ch, par[<span style="color:#a5d6ff">0</span>], par[<span style="color:#a5d6ff">1</span>], par[<span style="color:#a5d6ff">2</span>], par[<span style="color:#a5d6ff">3</span>], par[<span style="color:#a5d6ff">4</span>]) <span style="color:#ff7b72;font-weight:bold">-</span> fine_data)<span style="color:#ff7b72;font-weight:bold">/</span>np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(fine_data))<span style="color:#ff7b72;font-weight:bold">**</span><span style="color:#a5d6ff">2</span>)
+</span></span><span style="display:flex;"><span>    ndf <span style="color:#ff7b72;font-weight:bold">=</span> len(fine_ch) <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>plot(fine_ch, fine_data, <span style="color:#a5d6ff">&#39;o&#39;</span>, label<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;data&#34;</span>)
+</span></span><span style="display:flex;"><span>    x <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>arange(fine_range[<span style="color:#a5d6ff">0</span>], fine_range[<span style="color:#a5d6ff">1</span>], <span style="color:#a5d6ff">0.01</span>)
+</span></span><span style="display:flex;"><span>    x_list<span style="color:#ff7b72;font-weight:bold">.</span>append(x)
+</span></span><span style="display:flex;"><span>    y_list<span style="color:#ff7b72;font-weight:bold">.</span>append(fit_func(x, par[<span style="color:#a5d6ff">0</span>], par[<span style="color:#a5d6ff">1</span>], par[<span style="color:#a5d6ff">2</span>], par[<span style="color:#a5d6ff">3</span>], par[<span style="color:#a5d6ff">4</span>]))
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>plot(x, fit_func(x, par[<span style="color:#a5d6ff">0</span>], par[<span style="color:#a5d6ff">1</span>], par[<span style="color:#a5d6ff">2</span>], par[<span style="color:#a5d6ff">3</span>], par[<span style="color:#a5d6ff">4</span>]), label<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;fitting&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>yscale(<span style="color:#a5d6ff">&#34;log&#34;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>legend()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>grid()
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>savefig(<span style="color:#a5d6ff">&#34;py_fit&#34;</span> <span style="color:#ff7b72;font-weight:bold">+</span> str(i) <span style="color:#ff7b72;font-weight:bold">+</span> <span style="color:#a5d6ff">&#34;_result.png&#34;</span>) <span style="color:#8b949e;font-style:italic"># save</span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a5d6ff">&#34;chi2/ndf = </span><span style="color:#a5d6ff">{:7.3f}</span><span style="color:#a5d6ff">/</span><span style="color:#a5d6ff">{}</span><span style="color:#a5d6ff">&#34;</span><span style="color:#ff7b72;font-weight:bold">.</span>format(chi2, ndf))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a5d6ff">&#34;p0 : </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff"> +- </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff">&#34;</span><span style="color:#ff7b72;font-weight:bold">.</span>format(par[<span style="color:#a5d6ff">0</span>], np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(cov[<span style="color:#a5d6ff">0</span>,<span style="color:#a5d6ff">0</span>]<span style="color:#ff7b72;font-weight:bold">/</span>chi2<span style="color:#ff7b72;font-weight:bold">*</span>ndf)))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a5d6ff">&#34;p1 : </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff"> +- </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff">&#34;</span><span style="color:#ff7b72;font-weight:bold">.</span>format(par[<span style="color:#a5d6ff">1</span>], np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(cov[<span style="color:#a5d6ff">1</span>,<span style="color:#a5d6ff">1</span>]<span style="color:#ff7b72;font-weight:bold">/</span>chi2<span style="color:#ff7b72;font-weight:bold">*</span>ndf)))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a5d6ff">&#34;p2 : </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff"> +- </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff">&#34;</span><span style="color:#ff7b72;font-weight:bold">.</span>format(par[<span style="color:#a5d6ff">2</span>], np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(cov[<span style="color:#a5d6ff">2</span>,<span style="color:#a5d6ff">2</span>]<span style="color:#ff7b72;font-weight:bold">/</span>chi2<span style="color:#ff7b72;font-weight:bold">*</span>ndf)))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a5d6ff">&#34;p3 : </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff"> +- </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff">&#34;</span><span style="color:#ff7b72;font-weight:bold">.</span>format(par[<span style="color:#a5d6ff">3</span>], np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(cov[<span style="color:#a5d6ff">3</span>,<span style="color:#a5d6ff">3</span>]<span style="color:#ff7b72;font-weight:bold">/</span>chi2<span style="color:#ff7b72;font-weight:bold">*</span>ndf)))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a5d6ff">&#34;p4 : </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff"> +- </span><span style="color:#a5d6ff">{:10.5f}</span><span style="color:#a5d6ff">&#34;</span><span style="color:#ff7b72;font-weight:bold">.</span>format(par[<span style="color:#a5d6ff">4</span>], np<span style="color:#ff7b72;font-weight:bold">.</span>sqrt(cov[<span style="color:#a5d6ff">4</span>,<span style="color:#a5d6ff">4</span>]<span style="color:#ff7b72;font-weight:bold">/</span>chi2<span style="color:#ff7b72;font-weight:bold">*</span>ndf)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>plot(ch, data)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(len(x_list)):
+</span></span><span style="display:flex;"><span>    plt<span style="color:#ff7b72;font-weight:bold">.</span>plot(x_list[i], y_list[i])
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>yscale(<span style="color:#a5d6ff">&#34;log&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>savefig(<span style="color:#a5d6ff">&#34;py_fit_all.png&#34;</span>) <span style="color:#8b949e;font-style:italic"># save</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#ff7b72;font-weight:bold">.</span>show()
+</span></span></code></pre></div><figure><img src="py_fit_all.png" width="400"/>
+</figure>
+
+<p>curve_fitにおけるエラーは、デフォルトの値だと正確ではないので修正を加える必要があります。
+具体的には、共分散行列の対角成分にカイ二乗の値を用いて少し修正する必要があるみたいです。
+ROOTを用いれば修正の必要がないそうなので、余力があれば、ROOTの結果とpythonを使ったフィットの結果の比較を記載したいと思います。</p>
+<ul>
+<li>参考：<a href="https://qiita.com/niikura/items/79dc6837f017c05afaa7"  class="external-link" target="_blank" rel="noopener">フィッティングプログラムの比較</a></li>
+</ul>
+<h2 id="まとめ">
+  まとめ
+  <a class="heading-link" href="#%e3%81%be%e3%81%a8%e3%82%81">
+    <i class="fa fa-link" aria-hidden="true" title="見出しへのリンク"></i>
+    <span class="sr-only">見出しへのリンク</span>
+  </a>
+</h2>
+<p>やはり、ROOTは物理解析に特化していることから、解析コードは単純に書けるなと感じました。(ROOTに慣れているだけ？)
+特にcurve_fitを使う際はフィッティングエラーに補正が必要らしいので、これがちょっと面倒な部分だと思います。
+ただ、いつもROOTを使っていましたが、pythonでもピークフィットを自動化できることを知って、やっぱりpythonってすごいなと改めて思いました。</p>
+<p>また、今回作成したマクロ、pythonスクリプト、データ例(Ba.txt)はgithubの<a href="https://github.com/okawak/example/tree/main/peak_fitting"  class="external-link" target="_blank" rel="noopener">レポジトリ</a>に置いたので興味がある方は触ってみてください。</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script>
+  window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "okawak-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    
+    document.addEventListener('themeChanged', function (e) { 
+        if (document.readyState == 'complete') {
+          DISQUS.reset({ reload: true, config: disqus_config });
+        }
+    });
+</script>
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2023
+     Kodai Okawa 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZF67K577Y"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-MZF67K577Y', { 'anonymize_ip': false });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

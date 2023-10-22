@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>python on home</title>
-    <link>https://okawak.github.io/tags/python/</link>
-    <description>Recent content in python on home</description>
+    <title>ROOT on home</title>
+    <link>https://okawak.github.io/tags/root/</link>
+    <description>Recent content in ROOT on home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 18 Oct 2023 16:33:52 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Oct 2023 16:33:52 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/root/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ピークフィッティングまとめ</title>
       <link>https://okawak.github.io/posts/2023/peak_fitting/</link>
@@ -23,21 +23,6 @@ ROOTでの解析 見出しへのリンク fit.Cという名前のマクロを用
 データの読み込み 見出しへのリンク ROOTのTH1にはテキストファイルから直接TH1オブジェクトを生成するコンストラクタは無さそう(あったら教えてください&amp;hellip;)なので、 一行ずつ読み込ませてヒストグラムにセットしていきます。 また、4096チャンネル(12ビット)を仮定しています。
 まず、単純にヒストグラムを表示させるマクロは以下の通りに書けます。
 void fit(TString text_data=&amp;#34;&amp;#34;){ ifstream fin(text_data); if(!fin){ std::cerr &amp;lt;&amp;lt; &amp;#34;Error: not found &amp;#34; &amp;lt;&amp;lt; text_data &amp;lt;&amp;lt; std::endl; return; } Int_t max_bin = 4096; TH1I *h = new TH1I(&amp;#34;h&amp;#34;, &amp;#34;h&amp;#34;, max_bin, 0, max_bin - 1); string buf; Int_t ch = 0; while(getline(fin, buf)){ h-&amp;gt;SetBinContent(ch, stoi(buf)); ch++; } if(max_bin !</description>
-    </item>
-    
-    <item>
-      <title>pipやrequirements.txtについての備忘録</title>
-      <link>https://okawak.github.io/posts/2023/python_requirement/</link>
-      <pubDate>Wed, 11 Oct 2023 13:48:38 +0900</pubDate>
-      
-      <guid>https://okawak.github.io/posts/2023/python_requirement/</guid>
-      <description>python環境をvenvを使って作成する際、必要なパッケージなどをrequirements.txtで管理するようにしている。
-githubにソースを置いておくと時々セキュリティ面からパッケージをアップグレードするようにと連絡がくるため、 必要なコマンド等を忘れないようにメモしておく。
-随時メモしておくべきことがあれば更新します。
-基本的な使い方 見出しへのリンク pipでパッケージを一括でインストールする 見出しへのリンク pip install -r requirements.txt 現在の環境をrequirements.txtに書き出す 見出しへのリンク pip freeze &amp;gt; requirements.txt リダイレクトの設定が上書き禁止になっている場合 （「noclobber」がonになっている場合。この設定はset -o | grep noclobberなどで確認できる）、 このコマンドでは新たなファイルを作成することはできない。 強制的に上書きするには次のようにする。
-pip freeze &amp;gt;| requirements.txt パッケージのアップグレード 見出しへのリンク pipで一つずつアップグレード 見出しへのリンク pip install -U PackageName # or pip install --upgrade PackageName awkを用いて一括アップグレード 見出しへのリンク まず、pipで更新可能なパッケージを確認するには、
-pip list -o で確認できる。この出力を用いて一括アップデートするコマンドは以下の通りである。
-pip list -o | tail -n +3 | awk &amp;#39;{ print $1 }&amp;#39; | xargs pip install -U これは、pip list -oで出力されるパッケージについて、tail -n +3でパッケージ部分のみを取り出して（3行目から表示させるという意味）、 awk &#39;{print $1}&#39;で一列目を取り出し（パッケージの名前）、これらをpip install -Uするという処理になっている。</description>
     </item>
     
   </channel>
