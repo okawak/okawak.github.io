@@ -1,1 +1,6 @@
  <link rel="stylesheet" href="/css/custom.css" />
+
+<!-- katex -->
+{{ if or .Params.math .Site.Params.math }}
+{{ partial "math.html" . }}
+{{ end }}
