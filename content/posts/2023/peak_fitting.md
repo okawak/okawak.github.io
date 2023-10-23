@@ -5,7 +5,7 @@ draft: false
 disableComments: false
 description: "pythonとROOTを使ったピークサーチ、ピークフィッティングのまとめ"
 slug: ""
-tags: ["python","ROOT","peak_fitting","peak_search"]
+tags: ["analysis", "python","ROOT","peak_fitting","peak_search"]
 categories: []
 externalLink: ""
 series: []
@@ -199,7 +199,6 @@ vscodeなどでNotebookを使う環境を整えれば、簡単に解析するこ
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 from scipy.optimize import curve_fit
 from scipy.signal import find_peaks
 ```
