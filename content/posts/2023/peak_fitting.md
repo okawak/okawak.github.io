@@ -12,6 +12,8 @@ series: []
 math: true
 ---
 
+追記: curve_fitについて追記しました。
+
 普段[ROOT](https://root.cern/)を使って解析していますが、物理解析に特化しており一般的ではないと思います。
 特に有用なデータ処理に対してpythonを用いて同じことができれば良いなということで、特にピークフィットについて調べました。
 
@@ -279,7 +281,7 @@ for i in range(len(peaks)):
     fine_ch = np.arange(fine_range[0], fine_range[1])
 
     # initial parameters
-    par, cov = curve_fit(fit_func, fine_ch, fine_data, sigma=np.sqrt(fine_data), p0=[height_peaks[i]*2.0, pos_peaks[i], 1.0, 10.0, -0.001])
+    par, cov = curve_fit(fit_func, fine_ch, fine_data, sigma=np.sqrt(fine_data), p0=[height_peaks[i]*2.0, pos_peaks[i], 1.0, 10.0, -0.001], absolute_sigma=True)
     chi2 = np.sum(((fit_func(fine_ch, par[0], par[1], par[2], par[3], par[4]) - fine_data)/np.sqrt(fine_data))**2)
     ndf = len(fine_ch) - 5
 
@@ -295,11 +297,16 @@ for i in range(len(peaks)):
     plt.show()
 
     print("chi2/ndf = {:7.3f}/{}".format(chi2, ndf))
-    print("p0 : {:10.5f} +- {:10.5f}".format(par[0], np.sqrt(cov[0,0]/chi2*ndf)))
-    print("p1 : {:10.5f} +- {:10.5f}".format(par[1], np.sqrt(cov[1,1]/chi2*ndf)))
-    print("p2 : {:10.5f} +- {:10.5f}".format(par[2], np.sqrt(cov[2,2]/chi2*ndf)))
-    print("p3 : {:10.5f} +- {:10.5f}".format(par[3], np.sqrt(cov[3,3]/chi2*ndf)))
-    print("p4 : {:10.5f} +- {:10.5f}".format(par[4], np.sqrt(cov[4,4]/chi2*ndf)))
+    #print("p0 : {:10.5f} +- {:10.5f}".format(par[0], np.sqrt(cov[0,0]/chi2*ndf)))
+    #print("p1 : {:10.5f} +- {:10.5f}".format(par[1], np.sqrt(cov[1,1]/chi2*ndf)))
+    #print("p2 : {:10.5f} +- {:10.5f}".format(par[2], np.sqrt(cov[2,2]/chi2*ndf)))
+    #print("p3 : {:10.5f} +- {:10.5f}".format(par[3], np.sqrt(cov[3,3]/chi2*ndf)))
+    #print("p4 : {:10.5f} +- {:10.5f}".format(par[4], np.sqrt(cov[4,4]/chi2*ndf)))
+    print("p0 : {:10.5f} +- {:10.5f}".format(par[0], np.sqrt(cov[0,0])))
+    print("p1 : {:10.5f} +- {:10.5f}".format(par[1], np.sqrt(cov[1,1])))
+    print("p2 : {:10.5f} +- {:10.5f}".format(par[2], np.sqrt(cov[2,2])))
+    print("p3 : {:10.5f} +- {:10.5f}".format(par[3], np.sqrt(cov[3,3])))
+    print("p4 : {:10.5f} +- {:10.5f}".format(par[4], np.sqrt(cov[4,4])))
 
 plt.plot(ch, data)
 for i in range(len(x_list)):
@@ -311,15 +318,19 @@ plt.show()
 
 {{< figure src="py_fit_all.png" width=400 >}}
 
-curve_fitにおけるエラーは、デフォルトの値だと正確ではないので修正を加える必要があります。
-具体的には、共分散行列の対角成分にカイ二乗の値を用いて少し修正する必要があるみたいです。
-ROOTを用いれば修正の必要がないそうなので、余力があれば、ROOTの結果とpythonを使ったフィットの結果の比較を記載したいと思います。
+~~curve_fitにおけるエラーは、デフォルトの値だと正確ではないので修正を加える必要があります。~~
+~~具体的には、共分散行列の対角成分にカイ二乗の値を用いて少し修正する必要があるみたいです。~~
+~~ROOTを用いれば修正の必要がないそうなので、余力があれば、ROOTの結果とpythonを使ったフィットの結果の比較を記載したいと思います。~~
+curve_fitの関数の引数に`absolute_sigma=True`を指定すればそのままのエラーで正しいようです。
+
 - 参考：[フィッティングプログラムの比較](https://qiita.com/niikura/items/79dc6837f017c05afaa7)
 
 ## まとめ
 
 やはり、ROOTは物理解析に特化していることから、解析コードは単純に書けるなと感じました。(ROOTに慣れているだけ？)
-特にcurve_fitを使う際はフィッティングエラーに補正が必要らしいので、これがちょっと面倒な部分だと思います。
+~~特にcurve_fitを使う際はフィッティングエラーに補正が必要らしいので、これがちょっと面倒な部分だと思います。~~
+引数をちゃんと指定すればそのままエラーを用いることができるようです！
+
 ただ、いつもROOTを使っていましたが、pythonでもピークフィットを自動化できることを知って、やっぱりpythonってすごいなと改めて思いました。
 
 また、今回作成したマクロ、pythonスクリプト、データ例(Ba.txt)はgithubの[レポジトリ](https://github.com/okawak/example/tree/main/peak_fitting)に置いたので興味がある方は触ってみてください。
