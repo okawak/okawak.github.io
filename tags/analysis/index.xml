@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>analysis on home</title>
+    <link>https://okawak.github.io/tags/analysis/</link>
+    <description>Recent content in analysis on home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 18 Oct 2023 16:33:52 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/analysis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ピークフィッティングまとめ</title>
+      <link>https://okawak.github.io/posts/2023/peak_fitting/</link>
+      <pubDate>Wed, 18 Oct 2023 16:33:52 +0900</pubDate>
+      
+      <guid>https://okawak.github.io/posts/2023/peak_fitting/</guid>
+      <description>普段ROOTを使って解析していますが、物理解析に特化しており一般的ではないと思います。 特に有用なデータ処理に対してpythonを用いて同じことができれば良いなということで、特にピークフィットについて調べました。
+環境について 見出しへのリンク テストデータを用いた実験は以下のマシンで行いました。
+&amp;gt; sw_vers ProductName:	macOS ProductVersion:	13.6 BuildVersion:	22G120 &amp;gt; uname -v Darwin Kernel Version 22.6.0: Fri Sep 15 13:41:30 PDT 2023; root:xnu-8796.141.3.700.8~1/RELEASE_ARM64_T8103 ROOTのバージョンは、
+&amp;gt; root --version ROOT Version: 6.28/06 Built for macosxarm64 on Aug 28 2023, 11:29:15 From tags/v6-28-06@v6-28-06 python 3.11.6を用い、パッケージのバージョンはgithubにあるrequirements.txtを参照してください。
+今回の記事ではデータの例として、Ge検出器で$^{133}$Baのガンマ線を測定したデータを用いようと思います。 データ構造としては最も単純と考えられる、テキストファイルが与えられているとします。 例えば、0chから順に、
+1 10 1000 233 0 のような一列になっているファイルを考えます。
+ROOTでの解析 見出しへのリンク fit.Cという名前のマクロを用いて解析します。
+データの読み込み 見出しへのリンク ROOTのTH1にはテキストファイルから直接TH1オブジェクトを生成するコンストラクタは無さそう(あったら教えてください&amp;hellip;)なので、 一行ずつ読み込ませてヒストグラムにセットしていきます。 また、4096チャンネル(12ビット)を仮定しています。
+まず、単純にヒストグラムを表示させるマクロは以下の通りに書けます。
+void fit(TString text_data=&amp;#34;&amp;#34;){ ifstream fin(text_data); if(!fin){ std::cerr &amp;lt;&amp;lt; &amp;#34;Error: not found &amp;#34; &amp;lt;&amp;lt; text_data &amp;lt;&amp;lt; std::endl; return; } Int_t max_bin = 4096; TH1I *h = new TH1I(&amp;#34;h&amp;#34;, &amp;#34;h&amp;#34;, max_bin, 0, max_bin - 1); string buf; Int_t ch = 0; while(getline(fin, buf)){ h-&amp;gt;SetBinContent(ch, stoi(buf)); ch++; } if(max_bin !</description>
+    </item>
+    
+  </channel>
+</rss>
