@@ -21,7 +21,7 @@ style = "github-dark"
   avatarurl = "images/okawa_avatar.png"
   #gravatar = "john.doe@example.com"
 
-  #faviconSVG = "/img/favicon.svg"
+  faviconSVG = "images/favicon.svg"
   #favicon_32 = "/img/favicon-32x32.png"
   #favicon_16 = "/img/favicon-16x16.png"
 
@@ -32,7 +32,7 @@ style = "github-dark"
   colorScheme = "auto"
   hidecolorschemetoggle = false
 
-  # customCSS = ["css/custom.css"]
+  customCSS = ["css/custom.css"]
   # customSCSS = ["scss/custom.scss"]
   # customJS = ["js/custom.js"]
 
