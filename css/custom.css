@@ -1,3 +1,14 @@
+body {
+  font-family: 'Inter', sans-serif;
+  font-family: 'M PLUS 1p', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-family: 'M PLUS 1p', sans-serif;
+}
+
+
 .page-toc {
     margin: 1em;
     padding: 1em;
@@ -18,6 +29,28 @@
 .centered .about .latest_posts ul li{
     display: block;
 }
+
+/*
+.raw-col-title {
+ width: 100%;
+ text-align: center;
+ border-collapse: collapse;
+ border-spacing: 0;
+}
+.raw-col-title th {
+ padding: 10px;
+ background: #778ca3;
+ border: solid 1px #666666;
+ color: #ffffff;
+}
+.raw-col-title td {
+ padding: 10px;
+ border: solid 1px #666666;
+}
+.raw-col-title td:first-child {
+ background: #e9faf9;
+}
+*/
 
 .simple_table thead,
 tfoot {
