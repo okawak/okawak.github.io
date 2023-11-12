@@ -6,12 +6,12 @@
     <description>Recent content in peak_search on home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 18 Oct 2023 16:33:52 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/peak_search/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Oct 2023 16:33:52 +0900</lastBuildDate>
+    <atom:link href="https://okawak.github.io/tags/peak_search/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ピークフィッティングまとめ</title>
       <link>https://okawak.github.io/posts/2023/peak_fitting/</link>
       <pubDate>Wed, 18 Oct 2023 16:33:52 +0900</pubDate>
-      
       <guid>https://okawak.github.io/posts/2023/peak_fitting/</guid>
       <description>追記: curve_fitについて追記しました。
 普段ROOTを使って解析していますが、物理解析に特化しており一般的ではないと思います。 特に有用なデータ処理に対してpythonを用いて同じことができれば良いなということで、特にピークフィットについて調べました。
@@ -25,6 +25,5 @@ ROOTでの解析 見出しへのリンク fit.Cという名前のマクロを用
 まず、単純にヒストグラムを表示させるマクロは以下の通りに書けます。
 void fit(TString text_data=&amp;#34;&amp;#34;){ ifstream fin(text_data); if(!</description>
     </item>
-    
   </channel>
 </rss>

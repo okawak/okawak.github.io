@@ -6,12 +6,12 @@
     <description>Recent content in pip on home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 11 Oct 2023 13:48:38 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/pip/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Oct 2023 13:48:38 +0900</lastBuildDate>
+    <atom:link href="https://okawak.github.io/tags/pip/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>pipやrequirements.txtについての備忘録</title>
       <link>https://okawak.github.io/posts/2023/python_requirement/</link>
       <pubDate>Wed, 11 Oct 2023 13:48:38 +0900</pubDate>
-      
       <guid>https://okawak.github.io/posts/2023/python_requirement/</guid>
       <description>python環境をvenvを使って作成する際、必要なパッケージなどをrequirements.txtで管理するようにしている。
 githubにソースを置いておくと時々セキュリティ面からパッケージをアップグレードするようにと連絡がくるため、 必要なコマンド等を忘れないようにメモしておく。
@@ -21,6 +21,5 @@ pip freeze &amp;gt;| requirements.txt パッケージのアップグレード �
 pip list -o で確認できる。この出力を用いて一括アップデートするコマンドは以下の通りである。
 pip list -o | tail -n +3 | awk &amp;#39;{ print $1 }&amp;#39; | xargs pip install -U これは、pip list -oで出力されるパッケージについて、tail -n +3でパッケージ部分のみを取り出して（3行目から表示させるという意味）、 awk &#39;{print $1}&#39;で一列目を取り出し（パッケージの名前）、これらをpip install -Uするという処理になっている。</description>
     </item>
-    
   </channel>
 </rss>

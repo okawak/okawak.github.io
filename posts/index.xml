@@ -6,12 +6,39 @@
     <description>Recent content in Posts on home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 18 Oct 2023 16:33:52 +0900</lastBuildDate><atom:link href="https://okawak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Nov 2023 15:59:24 +0900</lastBuildDate>
+    <atom:link href="https://okawak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>近況報告</title>
+      <link>https://okawak.github.io/posts/2023/diary11_12/</link>
+      <pubDate>Sun, 12 Nov 2023 15:59:24 +0900</pubDate>
+      <guid>https://okawak.github.io/posts/2023/diary11_12/</guid>
+      <description>最近やったことや調べたことをメモします。 忘れないように書いているだけなので有用な情報はないかもです。
+Pythonの環境について 見出しへのリンク pythonを実行するとき、どの環境でするべきかをいつも悩んでいて、よく python -m venv .venvを使っていましたが、もっと良いものはないかと探していたところ、おそらく良い方法は以下の2つかなと思っています。
+docker poetry dockerについて 見出しへのリンク 一番良いのはこれだと思いますが、昔dockerを触ったとき、メモリに関してエラーが起こったりよく調べないまま使っていたりしており、苦手意識があってまだ手が出せていません…
+dockerを使って開発している人に聞くと、開発用、デプロイ用に環境を分けたり、サクッと環境を持ってくるのにも楽でとても便利だということを聞いたのでそろそろ調べてみようかなと思ったりしてます。 dockerの中の環境と、localな環境での連携がどうなってるのか自分の中でクリアーになれば今後導入していきたいです。
+なのでpythonのツールを作成するときも、dockerをベースに作成するのが良さそうです。
+poetryについて 見出しへのリンク dockerを使わないで、仮想環境を整える場合&amp;ldquo;poetry&amp;rdquo;というものを使うのが便利そうです。
+最近Rust言語も勉強しているのですが、そのcargoに近いことをこのpoetryがやってくれるっぽいです。(違ったらすみません…) 以前作成した&amp;quot;send_runsummary&amp;quot;というツールもpoetryで管理するように修正してみました。(クラスにするなど細かい修正も行なっています)
+以前のソース(Gitlab) 新しいソース(Github) コマンドに慣れてしまえばかなり良さそうです。
+shellscriptについて 見出しへのリンク 最近は普通のコード(PythonとかC++)ではなくシェルスクリプトを色々書いてます。 調べれば調べるほど、実は複雑で難しいんだなと実感します。
+時間があれば有用な知識について記事にまとめられればなと思ってます。
+ブラウザについて 見出しへのリンク 今まではsidekickというブラウザを使っていました。 これはサイドバーにアプリを置くことができて、特にgmailがおけて通知も来るのですごく便利でした。 仕様の詳細は検索してみてください。 かなり良いブラウザだと思います。
+ただいつからか無料アカウントに機能の制限がきてしまい、他のブラウザに乗り換えようかなと思うようになりました。 色々調べている中で、
+vivaldi arc の二つが良さそうだったので、試してみました。
+vivaldiについて 見出しへのリンク すみません、ほぼ1日しか触っていないので詳細には述べられませんが、結論から言うと自分にはあっていなかったです。 めちゃくちゃカスタマイズできることがこのブラウザの売りのようで、その点はすごく気に入りました。 しかし、sidekickになれていたため、サイドバーにアプリがおけ、さらにそれがアクティブになる(うまく説明するのが難しいですが、サイドバーからアプリを開き、色々操作した後に、別のタブに行き、また戻ってきた際にその操作後の状態を維持している) というのが便利で、それが難しそうでした。
+ちゃんと調べればそういった機能も使えるのかもしれないですが、気がついたらsidekickに戻ってしまい、vivaldiを使わなくなってしまいました…
+arcについて 見出しへのリンク ArcというブラウザはmacOSのみに対応しているブラウザで、比較的最近開発されたブラウザだそうです。 結論から言うとかなり良いです！
+homebrewでインストールできますし、sidekickで行なっていたこともそのままできて感触としてはこれからも使っていきたいとなっています。 一点、gmailの通知(新しいメールが来たときにつく、右上の数字)が現れないことが、ちょっとなと思っているところですが、 その他の機能は問題なく使えています。 特徴的な点として、タブが上部ではなく横につくと言う点がありますが、慣れれば問題ないです。 ブラウザは縦に情報が伸びているので、上にタブがないことで、一度の画面で多くの情報が見れるのでかなり良いです。(これは他のブラウザでも設定できますが…)
+まだまだショートカットキーなど使いこなせていない機能もありますが、しばらく使ってから有用な機能など紹介できたらなと思っています。
+基本情報技術者試験について 見出しへのリンク 基本情報の試験を受けてきました。 ちょっとしか勉強できていなかったのでギリギリの合格ラインでした。
+感想としては、この基本情報の知識を持っていても(特に研究に関しては)実務にはあまり関係ないかもと思いました。 就活するときには便利な資格のようにも思うので取ってよかったと思いますが、 時間があれば応用情報とかLPICのような資格も取ろうかなと思ったり思わなかったり。
+AWSについて 見出しへのリンク 今まで全くAWSに触れたことがなかったのですが、ついにこれからAWSを触る機会ができそうです。 前々からどんなものなのか気になっていたので、色々進めながらAWSの勉強もしていきたいなと思っています。</description>
+    </item>
     <item>
       <title>ピークフィッティングまとめ</title>
       <link>https://okawak.github.io/posts/2023/peak_fitting/</link>
       <pubDate>Wed, 18 Oct 2023 16:33:52 +0900</pubDate>
-      
       <guid>https://okawak.github.io/posts/2023/peak_fitting/</guid>
       <description>追記: curve_fitについて追記しました。
 普段ROOTを使って解析していますが、物理解析に特化しており一般的ではないと思います。 特に有用なデータ処理に対してpythonを用いて同じことができれば良いなということで、特にピークフィットについて調べました。
@@ -25,12 +52,10 @@ ROOTでの解析 見出しへのリンク fit.Cという名前のマクロを用
 まず、単純にヒストグラムを表示させるマクロは以下の通りに書けます。
 void fit(TString text_data=&amp;#34;&amp;#34;){ ifstream fin(text_data); if(!</description>
     </item>
-    
     <item>
       <title>pipやrequirements.txtについての備忘録</title>
       <link>https://okawak.github.io/posts/2023/python_requirement/</link>
       <pubDate>Wed, 11 Oct 2023 13:48:38 +0900</pubDate>
-      
       <guid>https://okawak.github.io/posts/2023/python_requirement/</guid>
       <description>python環境をvenvを使って作成する際、必要なパッケージなどをrequirements.txtで管理するようにしている。
 githubにソースを置いておくと時々セキュリティ面からパッケージをアップグレードするようにと連絡がくるため、 必要なコマンド等を忘れないようにメモしておく。
@@ -40,12 +65,10 @@ pip freeze &amp;gt;| requirements.txt パッケージのアップグレード �
 pip list -o で確認できる。この出力を用いて一括アップデートするコマンドは以下の通りである。
 pip list -o | tail -n +3 | awk &amp;#39;{ print $1 }&amp;#39; | xargs pip install -U これは、pip list -oで出力されるパッケージについて、tail -n +3でパッケージ部分のみを取り出して（3行目から表示させるという意味）、 awk &#39;{print $1}&#39;で一列目を取り出し（パッケージの名前）、これらをpip install -Uするという処理になっている。</description>
     </item>
-    
     <item>
       <title>hugoで新しい記事を作成する</title>
       <link>https://okawak.github.io/posts/2023/new_post/</link>
       <pubDate>Sun, 08 Oct 2023 12:32:08 +0900</pubDate>
-      
       <guid>https://okawak.github.io/posts/2023/new_post/</guid>
       <description>初めて記事を投稿させていただきます。 今回は、hugoを用いて新規記事を作成したい場合の手順についてメモしたいと思います。 今回の内容は以下のバージョンを用いております。
 &amp;gt; hugo version hugo v0.117.0+extended linux/amd64 BuildDate=unknown カスタマイズ前 見出しへのリンク hugoをインストールし、新しいサイトを作るには以下のコマンドを使用します。
@@ -59,6 +82,5 @@ hugo new posts/hoge.md このとき作成された./content/posts/hoge.mdの内�
 例として、./archetypes/posts.mdを作成して、新たな記事./content/posts/huga.mdを作成する例を見てみたいと思います。 テンプレートファイルposts.mdを以下のように作成します。
 --- title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34; date: {{ .</description>
     </item>
-    
   </channel>
 </rss>

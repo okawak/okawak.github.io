@@ -6,12 +6,12 @@
     <description>Recent content in hugo on home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 08 Oct 2023 12:32:08 +0900</lastBuildDate><atom:link href="https://okawak.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Oct 2023 12:32:08 +0900</lastBuildDate>
+    <atom:link href="https://okawak.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hugoで新しい記事を作成する</title>
       <link>https://okawak.github.io/posts/2023/new_post/</link>
       <pubDate>Sun, 08 Oct 2023 12:32:08 +0900</pubDate>
-      
       <guid>https://okawak.github.io/posts/2023/new_post/</guid>
       <description>初めて記事を投稿させていただきます。 今回は、hugoを用いて新規記事を作成したい場合の手順についてメモしたいと思います。 今回の内容は以下のバージョンを用いております。
 &amp;gt; hugo version hugo v0.117.0+extended linux/amd64 BuildDate=unknown カスタマイズ前 見出しへのリンク hugoをインストールし、新しいサイトを作るには以下のコマンドを使用します。
@@ -25,6 +25,5 @@ hugo new posts/hoge.md このとき作成された./content/posts/hoge.mdの内�
 例として、./archetypes/posts.mdを作成して、新たな記事./content/posts/huga.mdを作成する例を見てみたいと思います。 テンプレートファイルposts.mdを以下のように作成します。
 --- title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34; date: {{ .</description>
     </item>
-    
   </channel>
 </rss>
