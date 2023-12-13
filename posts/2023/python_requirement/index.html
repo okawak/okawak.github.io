@@ -22,8 +22,7 @@ pip list -o で確認できる。この出力を用いて一括アップデー�
 pip list -o | tail -n &#43;3 | awk &#39;{ print $1 }&#39; | xargs pip install -U これは、pip list -oで出力されるパッケージについて、tail -n &#43;3でパッケージ部分のみを取り出して（3行目から表示させるという意味）、 awk &#39;{print $1}&#39;で一列目を取り出し（パッケージの名前）、これらをpip install -Uするという処理になっている。">
 <meta name="keywords" content="blog,developer,personal">
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="pipやrequirements.txtについての備忘録"/>
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="pipやrequirements.txtについての備忘録"/>
 <meta name="twitter:description" content="python環境をvenvを使って作成する際、必要なパッケージなどをrequirements.txtで管理するようにしている。
 githubにソースを置いておくと時々セキュリティ面からパッケージをアップグレードするようにと連絡がくるため、 必要なコマンド等を忘れないようにメモしておく。
 随時メモしておくべきことがあれば更新します。

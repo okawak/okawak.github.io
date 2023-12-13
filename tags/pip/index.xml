@@ -13,13 +13,7 @@
       <link>https://okawak.github.io/posts/2023/python_requirement/</link>
       <pubDate>Wed, 11 Oct 2023 13:48:38 +0900</pubDate>
       <guid>https://okawak.github.io/posts/2023/python_requirement/</guid>
-      <description>python環境をvenvを使って作成する際、必要なパッケージなどをrequirements.txtで管理するようにしている。
-githubにソースを置いておくと時々セキュリティ面からパッケージをアップグレードするようにと連絡がくるため、 必要なコマンド等を忘れないようにメモしておく。
-随時メモしておくべきことがあれば更新します。
-基本的な使い方 見出しへのリンク pipでパッケージを一括でインストールする 見出しへのリンク pip install -r requirements.txt 現在の環境をrequirements.txtに書き出す 見出しへのリンク pip freeze &amp;gt; requirements.txt リダイレクトの設定が上書き禁止になっている場合 （「noclobber」がonになっている場合。この設定はset -o | grep noclobberなどで確認できる）、 このコマンドでは新たなファイルを作成することはできない。 強制的に上書きするには次のようにする。
-pip freeze &amp;gt;| requirements.txt パッケージのアップグレード 見出しへのリンク pipで一つずつアップグレード 見出しへのリンク pip install -U PackageName # or pip install --upgrade PackageName awkを用いて一括アップグレード 見出しへのリンク まず、pipで更新可能なパッケージを確認するには、
-pip list -o で確認できる。この出力を用いて一括アップデートするコマンドは以下の通りである。
-pip list -o | tail -n +3 | awk &amp;#39;{ print $1 }&amp;#39; | xargs pip install -U これは、pip list -oで出力されるパッケージについて、tail -n +3でパッケージ部分のみを取り出して（3行目から表示させるという意味）、 awk &#39;{print $1}&#39;で一列目を取り出し（パッケージの名前）、これらをpip install -Uするという処理になっている。</description>
+      <description>python環境をvenvを使って作成する際、必要なパッケージなどをrequirements.txtで管理するようにしている。&#xA;githubにソースを置いておくと時々セキュリティ面からパッケージをアップグレードするようにと連絡がくるため、 必要なコマンド等を忘れないようにメモしておく。&#xA;随時メモしておくべきことがあれば更新します。&#xA;基本的な使い方 見出しへのリンク pipでパッケージを一括でインストールする 見出しへのリンク pip install -r requirements.txt 現在の環境をrequirements.txtに書き出す 見出しへのリンク pip freeze &amp;gt; requirements.txt リダイレクトの設定が上書き禁止になっている場合 （「noclobber」がonになっている場合。この設定はset -o | grep noclobberなどで確認できる）、 このコマンドでは新たなファイルを作成することはできない。 強制的に上書きするには次のようにする。&#xA;pip freeze &amp;gt;| requirements.txt パッケージのアップグレード 見出しへのリンク pipで一つずつアップグレード 見出しへのリンク pip install -U PackageName # or pip install --upgrade PackageName awkを用いて一括アップグレード 見出しへのリンク まず、pipで更新可能なパッケージを確認するには、&#xA;pip list -o で確認できる。この出力を用いて一括アップデートするコマンドは以下の通りである。&#xA;pip list -o | tail -n +3 | awk &amp;#39;{ print $1 }&amp;#39; | xargs pip install -U これは、pip list -oで出力されるパッケージについて、tail -n +3でパッケージ部分のみを取り出して（3行目から表示させるという意味）、 awk &#39;{print $1}&#39;で一列目を取り出し（パッケージの名前）、これらをpip install -Uするという処理になっている。</description>
     </item>
   </channel>
 </rss>
